@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netback.myelementback.Dao.UserMapper">
+
+    <insert id="insert" parameterType="com.example.weixinback.Entity.FileList">
+        insert into tFile(nID,sFilename,sFiletype,dCreateDate,sCreateUser,nParentID,nTag) values(#{ID},#{fileName},#{fileType},now(),#{createUser},#{ParentID},#{tag})
+    </insert>
+
+    <select id="getById" parameterType="int" resultType="com.example.weixinback.Entity.FileList">
+        select nID as ID, sFileName as fileName, nParentID as ParentID from tFile where nID = #{ID}
+    </select>
+
+    <update id="update" parameterType="com.example.weixinback.Entity.FileList">
+        update tFile set sFileName = #{fileName} where nID = #{ID}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        delete from tFile where nID = #{ID}
+    </delete>
+
+</mapper>
