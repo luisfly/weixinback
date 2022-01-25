@@ -1,8 +1,11 @@
 package com.example.weixinback.backcontrollers;
 
 import com.example.weixinback.Dao.FileListMapper;
+import com.example.weixinback.Entity.FileList;
+import com.example.weixinback.utils.CodeAndMsg;
 import com.example.weixinback.utils.CustResponseEntity;
 import com.example.weixinback.utils.UniformResponseHandler;
+import com.example.weixinback.utils.UserDefinedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import net.minidev.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,14 @@ public class FileListController {
     @ResponseBody
     @PostMapping("/api/GetFileList")
     public CustResponseEntity GetFileList(@RequestBody JSONObject postData) {
-        int ID = postData.getAsNumber("ID").intValue();
+        int id = postData.getAsNumber("ID").intValue();
 
-        System.out.println("ID:" + ID);
+        FileList filelist = mapper.getById(id);
 
-        return new UniformResponseHandler<>().sendSuccessResponse();
+        if (filelist == null) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse(filelist);
     }
 }
