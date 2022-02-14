@@ -33,4 +33,18 @@ public class FileListController {
 
         return new UniformResponseHandler<>().sendSuccessResponse(filelist);
     }
+
+    /**
+     * 扫描器测试端口
+     * @param postData
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/api/Test")
+    public String Test(@RequestBody String postData) {
+        System.out.println("PostData: " + postData);
+
+        return "code=0002";
+        //return new UniformResponseHandler<>().sendSuccessResponse(CodeAndMsg.Test);
+    }
 }

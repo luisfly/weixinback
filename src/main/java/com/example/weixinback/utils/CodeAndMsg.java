@@ -1,6 +1,7 @@
 package com.example.weixinback.utils;
 
 public enum CodeAndMsg {
+    Test(0000, "Test"),
     SUCCESS(20000, "SUCCESS"),
     METHODFAIL(21000, "ENCOUNTER AN ERROR WHEN EXECUTE METHOD"),
     UNKNOWECEPTION(22000, "UNKNOWECEPTION"),
