@@ -5,27 +5,27 @@ import java.util.Date;
 
 public class User implements Serializable {
 
-    private String uesrNO;
-    private String uesrName;
+    private String userNO;
+    private String userName;
     private Date createDate;
     private Date lastLoginTime;
     private String weiXinNO;
     private int tag;
 
-    public String getUesrNO() {
-        return uesrNO;
+    public String getUserNO() {
+        return userNO;
     }
 
-    public void setUesrNO(String uesrNO) {
-        this.uesrNO = uesrNO;
+    public void setUserNO(String userNO) {
+        this.userNO = userNO;
     }
 
-    public String getUesrName() {
-        return uesrName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUesrName(String uesrName) {
-        this.uesrName = uesrName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getCreateDate() {
