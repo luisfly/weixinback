@@ -17,7 +17,7 @@
         update tUser set sUserName = #{userName} where sUserNO = #{userNO}
     </update>
 
-    <delete id="deleteById" parameterType="String">
+    <delete id="delete" parameterType="String">
         delete from tUser where sUserNO = #{userNO}
     </delete>
 

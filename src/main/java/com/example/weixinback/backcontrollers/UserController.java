@@ -82,6 +82,7 @@ public class UserController {
         try {
             mapper.delete(userNO);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
 
         }
