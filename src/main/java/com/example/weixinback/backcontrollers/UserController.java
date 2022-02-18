@@ -48,10 +48,16 @@ public class UserController {
         return new UniformResponseHandler<>().sendSuccessResponse(user);
     }
 
+    /**
+     * 创建用户
+     * @param postData
+     * @return
+     */
     @ResponseBody
     @PostMapping("/api/CreateUser")
     public CustResponseEntity CreateUser(@RequestBody JSONObject postData) {
         User user = new User();
+        // 看能不能弄个将数据获取直接复制到对象的方法
         user.setUserName(postData.getAsString("UserName"));
         user.setUserNO(postData.getAsString("UserNO"));
         user.setWeiXinNO(postData.getAsString("WeiXinNO"));
@@ -59,13 +65,27 @@ public class UserController {
         try {
             mapper.insert(user);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             if (e.getMessage().indexOf("Duplicate entry", 0) != -1) {
                 return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.REPEATERROR));
             }
-
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.UNKNOWECEPTION));
         }
 
         return new UniformResponseHandler<>().sendSuccessResponse(user);
+    }
+
+    @ResponseBody
+    @PostMapping("/api/DelUser")
+    public CustResponseEntity DelUser(@RequestBody JSONObject postData) {
+        String userNO = postData.getAsString("UserNO");
+
+        try {
+            mapper.delete(userNO);
+        } catch (Exception e) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse(userNO);
     }
 }
