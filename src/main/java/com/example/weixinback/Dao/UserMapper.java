@@ -12,5 +12,5 @@ public interface UserMapper {
     public boolean update(User user);
     public User getById(String userNO);
 
-    public User getByWeiXinNO(String WeiXinNO);
+    public User getByWeiXinNO(String weiXinNO);
 }

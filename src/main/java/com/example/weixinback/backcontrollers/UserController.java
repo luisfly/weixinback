@@ -90,5 +90,36 @@ public class UserController {
         return new UniformResponseHandler<>().sendSuccessResponse(userNO);
     }
 
+    /**
+     * 验证用户
+     * @param postData 验证数据
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/api/CheckUser")
+    public CustResponseEntity CheckUser(@RequestBody JSONObject postData) {
+        String userNO = postData.getAsString("UserNO");
+        String weiXinNO = postData.getAsString("WeiXinNO");
+
+        try {
+            User checkUser = mapper.getByWeiXinNO(weiXinNO);
+
+
+            if (checkUser != null ) {
+                if (!userNO.equals(checkUser.getUserNO())) {
+                    return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+                }
+            } else {
+                return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+            }
+        } catch (Exception e) {
+            if (e.getMessage().indexOf("Duplicate entry", 0) != -1) {
+                return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.REPEATERROR));
+            }
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.UNKNOWECEPTION));
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse(userNO);
+    }
 
 }
